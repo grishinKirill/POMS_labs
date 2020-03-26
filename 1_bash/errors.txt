@@ -1,0 +1,3 @@
+./myscript2: line 20: /media/psf/Home/Documents/GitHub/POMS_labs/1_bash/example_folder/: Is a directory
+./myscript2: line 22: /media/psf/Home/Documents/GitHub/POMS_labs/1_bash/example_folder/: Is a directory
+cat: /media/psf/Home/Documents/GitHub/POMS_labs/1_bash/example_folder/: Is a directory

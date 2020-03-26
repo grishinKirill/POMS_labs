@@ -1,0 +1,88 @@
+#!/bin/bash
+clear
+#dpkg --get-selections | awk -F "mp3info" '{print $1}'
+# if ["`dpkg --get-selections | awk 'print $0'`" = ""]
+#then 
+  sudo apt install mp3info
+#fi
+
+home_dir=`pwd`
+output=$home_dir/output.csv
+prefix=""
+touch $output
+rm $output
+exec 1>$output
+#exec 2>errors.txt
+IFS=$'\n'
+
+#making a header of *.csv
+echo "name,type,size,rights,date,duration,dir" 
+
+function myls()
+{
+i=0
+curr_dir=$1
+#cd $curr_dir
+#echo "function opened with param:$curr_dir,i=$i."
+#start collecting info about file
+for line in `ls -l $curr_dir` #--group-directories-first
+do
+#curr_dir=`pwd -P`
+i=$(( $i + 1 ))
+
+if [ $i -eq 1 ] 
+ then 
+   continue
+ fi
+ #echo "i=$i.line="$line
+ fil=`echo $line | awk '{print $9}'`
+ name=`echo "$fil" | awk -F '.' '{print $1}' `  #name is everything before dot
+#echo -n "$prefix"
+ echo -n "$name," #>>$output #print without new line
+#echo -n "try:$curr_dir/$name"
+ #say its directory or print type of file
+ if [ -d "$curr_dir/$name" ]
+ then 
+  echo -n "directory," 
+ #elif [ -f "$curr_dir/$fil" ]
+ else 
+#then 
+   mtype=`echo "$fil" | awk -F '.' '{print $2}' `  #type is everything after dot   
+   echo -n "$mtype,"  #print without new line
+#else echo -n "type=$mtype," 
+fi
+
+ #print size of item
+ msize=`echo $line | awk '{print $5}'`
+ echo -n "$mtype," 
+
+ #print rights
+ #echo -n "`stat -c %A $fil`,"
+ mrights=`echo $line | awk '{print $1}'`
+ echo -n "$mrights, " 
+
+ #print date
+ mdate=`echo $line | awk '{print $7 $6  $8}'`
+ echo -n "$mdate," 
+ 
+ if [ "$mtype" == "mp3" ] 
+   then 
+   echo -n "`mp3info -p "%m:%s" $curr_dir/$fil`," 
+ else 
+   echo -n ","  
+ fi
+
+ echo -n "$curr_dir,"
+ #start new line 
+ echo " "
+
+ if [ -d "$curr_dir/$name" ]
+ then 
+  myls "$curr_dir/$fil" 
+ fi
+ done
+return 0
+}
+
+myls "$home_dir"
+exit 0
