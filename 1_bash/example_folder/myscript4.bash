@@ -8,7 +8,6 @@ clear
 
 home_dir=`pwd`
 output=$home_dir/output.csv
-prefix=""
 touch $output
 rm $output
 exec 1>$output
@@ -20,69 +19,66 @@ echo "name,type,size,rights,date,duration,dir"
 
 function myls()
 {
-i=0
-curr_dir=$1
-#cd $curr_dir
-#echo "function opened with param:$curr_dir,i=$i."
+i=0 #counter to skip the first line (total:0) in ls -l
+
 #start collecting info about file
-for line in `ls -l $curr_dir` #--group-directories-first
+for line in `ls -l $1` #--group-directories-first
 do
-#curr_dir=`pwd -P`
 i=$(( $i + 1 ))
 
-if [ $i -eq 1 ] 
- then 
+ if [ $i -eq 1 ] 
+  then 
    continue
  fi
- #echo "i=$i.line="$line
  fil=`echo $line | awk '{print $9}'`
+ #print name
  name=`echo "$fil" | awk -F '.' '{print $1}' `  #name is everything before dot
-#echo -n "$prefix"
- echo -n "$name," #>>$output #print without new line
-#echo -n "try:$curr_dir/$name"
- #say its directory or print type of file
- if [ -d "$curr_dir/$name" ]
+ echo -n "$2$name," #>>$output #print without new line
+ 
+ #say is it a directory or print type of file
+ if [ -d "$1/$name" ]
  then 
   echo -n "directory," 
  #elif [ -f "$curr_dir/$fil" ]
  else 
-#then 
    mtype=`echo "$fil" | awk -F '.' '{print $2}' `  #type is everything after dot   
    echo -n "$mtype,"  #print without new line
-#else echo -n "type=$mtype," 
 fi
 
  #print size of item
  msize=`echo $line | awk '{print $5}'`
- echo -n "$mtype," 
+ echo -n "$msize," 
 
  #print rights
- #echo -n "`stat -c %A $fil`,"
+ #echo -n "`stat -c %A $fil`," also can be used
  mrights=`echo $line | awk '{print $1}'`
  echo -n "$mrights, " 
 
  #print date
  mdate=`echo $line | awk '{print $7 $6  $8}'`
  echo -n "$mdate," 
- 
+
+ #print info about audio
  if [ "$mtype" == "mp3" ] 
    then 
-   echo -n "`mp3info -p "%m:%s" $curr_dir/$fil`," 
+   echo -n "`mp3info -p "%m:%s" $1/$fil`," 
  else 
    echo -n ","  
  fi
 
- echo -n "$curr_dir,"
+ #print current dirrectory to ensure we're still where we want to be
+ echo -n "$1,"
  #start new line 
  echo " "
 
- if [ -d "$curr_dir/$name" ]
+ #go down if current folder have another folder
+ if [ -d "$1/$name" ]
  then 
-  myls "$curr_dir/$fil" 
+  myls "$1/$fil" "$2-" 
  fi
  done
 return 0
 }
 
-myls "$home_dir"
+myls `pwd` ""
 exit 0
