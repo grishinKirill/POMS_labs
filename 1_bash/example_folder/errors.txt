@@ -1,4 +1,0 @@
-./myscript: line 47: [: !=: unary operator expected
-ASd is corrupt or is not a standard MP3 file.
-./myscript: line 47: [: !=: unary operator expected
-myscript is corrupt or is not a standard MP3 file.

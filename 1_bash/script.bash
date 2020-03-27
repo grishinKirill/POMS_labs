@@ -30,10 +30,8 @@ i=$(( $i + 1 ))
   then 
    continue
  fi
- #this_file="${file##*/}"
  fil=`echo $line | awk '{print $9}'`
  #print name
-#name="${\ line%.[^.]*}"
  name=`echo "$fil" | awk -F '.' '{print $1}' `  #name is everything before dot
  echo -n "$2$name," #>>$output #print without new line
  
