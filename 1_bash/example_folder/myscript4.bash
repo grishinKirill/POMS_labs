@@ -1,4 +1,5 @@
 #!/bin/bash
+#fdsfs
 clear
 #dpkg --get-selections | awk -F "mp3info" '{print $1}'
 # if ["`dpkg --get-selections | awk 'print $0'`" = ""]
