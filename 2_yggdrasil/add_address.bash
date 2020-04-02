@@ -7,7 +7,7 @@ echo -n "do you want to add peers? y/n:"
 read answer
 if [ "$answer" = "y" ]; then 
 #echo "adding:"
-echo $insert
+#echo $insert
 sudo sed -i 's/Peers: \[/Peers: \[ \
 	tcp:\/\/88.201.129.205:8777 \
 	tcp:\/\/[2a05:3580:d900:1b13:e2d5:5eff:fed8:8b86]:8777 \
