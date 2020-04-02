@@ -1,5 +1,7 @@
 #!/bin/bash
+
 sudo apt-get install git
+#used for raspberry and others...
 sudo apt-get install dirmngr
 #add repo to install yggdrasil with apt-get
 gpg --fetch-keys https://neilalexander.s3.dualstack.eu-west-2.amazonaws.com/deb/key.txt
@@ -8,8 +10,14 @@ echo 'deb http://neilalexander.s3.dualstack.eu-west-2.amazonaws.com/deb/ debian 
 sudo apt-get update
 sudo apt-get install yggdrasil
 
-sudo systemctl enable yggdrasil
-sudo systemctl start yggdrasil
+mkdir "tmp"
+#cloning my repo to use local .conf file
+git clone https://github.com/grishinKirill/POMS_labs.git tmp
+yggdrasil -useconffile ./tmp/2_yggdrasil/yggdrasil.conf
+#check peers for spb or for moscow
+vim ./tmp/2_yggdrasil/yggdrasil.conf
+#restart with new .conf file
+sudo systemctl start yggdrasil #--autoconf
 #git clone 
 # change config file
 #rm
