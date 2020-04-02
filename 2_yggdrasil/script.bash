@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sudo apt-get update
 sudo apt-get install git
 #used for raspberry and others...
 sudo apt-get install dirmngr
