@@ -11,7 +11,4 @@ https://habr.com/ru/post/443934/
 [статью](https://temofeev.ru/info/articles/chto-nam-stoit-mesh-postroit-kak-detsentralizovannyy-internet-provayder-medium-delaet-novyy-internet/).
 
 После установки и запуска первым делом можно посмотреть (что также является проверкой работоспособности yggdrasil)
-[Mesh-RSS](http://[303:60d4:3d32:a2b9::4]/)
-[Wiki](http://[203:e0b0:ec08:4e1f:f004:19a9:577a:90ba]/wiki/index.php?title=Main_Page)
-[YggEdit](http://[301:b614:c68e:b27f::1]/)
-[Map](http://[21f:dd73:7cdb:773b:a924:7ec0:800b:221e]/#)
+[страницу актуальных сервисов](https://yggdrasil-network.github.io/services.html).
