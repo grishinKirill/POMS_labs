@@ -9,6 +9,6 @@
 5. Попробуй открыть любой сайт из последнего раздела. Например, Wiki.
 # Что дальше?
 Для того, чтобы понять хоть каплю о mesh-сетях, рекомендую прочитать 
-[Хабр]https://habr.com/ru/post/443934/, а потом обязательно [другую статью](https://temofeev.ru/info/articles/chto-nam-stoit-mesh-postroit-kak-detsentralizovannyy-internet-provayder-medium-delaet-novyy-internet/).
+[Хабр](https://habr.com/ru/post/443934/, а потом обязательно [другую статью](https://temofeev.ru/info/articles/chto-nam-stoit-mesh-postroit-kak-detsentralizovannyy-internet-provayder-medium-delaet-novyy-internet/).
 После установки и запуска первым делом можно посмотреть (что также является проверкой работоспособности yggdrasil)
 [страницу актуальных сервисов](https://yggdrasil-network.github.io/services.html).
