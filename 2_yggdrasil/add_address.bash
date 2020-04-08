@@ -19,4 +19,3 @@ echo "done"
 elif [ "$answer" = "n" ]; then echo "ko"
 else echo "wrong parametr"
 fi
-
