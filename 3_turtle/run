@@ -1,0 +1,27 @@
+#!/bin/bash
+_r=4.7
+_l=1.55
+num=0
+#2
+
+#4
+
+#3
+
+#9
+
+#0
+lin0=(2 1 2 1); ang0=(0 $_r $_r $_r)
+#6
+
+rosservice call /turtle1/teleport_absolute 2 2 $_l
+
+# make pencil ON
+
+#draw number 
+for i in ${!lin0[@]};do
+	rosservice call /turtle1/teleport_relative ${lin0[$i]} ${ang0[$i]}; done
+# make pencil OFF
+
+#go to next point
+rosservice call /turtle1/teleport_absolute $num 0 $_l
