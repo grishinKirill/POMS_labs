@@ -4,26 +4,28 @@
 function clean_board() { echo "Clean board" ; rosservice call /clear ; }
 
 function num_print() {
-	
-	length=${#1}
-	for (( i=0; i < $length; i++ )) ; do
+	# Draw sequence of numbers
+	for (( k=0; k < ${#1}; k++ ))
+	do
 		
 		# Enter coordinates to teleport
+		num=${1:$k:1} 
+		echo "The turtle is ready to draw number $num"
 		read -p "Enter start X coordinate: " x
 		read -p "Enter start Y coordinate: " y
 		turnOff; gotoxy $x $y
 		# Choose the number
-		case ${1:$i:1} in
-			"0") draw0;;
-			"1") draw1;;
-			"2") draw2;;
-			"3") draw3;;
-			"4") draw4;;
-			"5") draw5;;
-			"6") draw6;;
-			"7") draw7;;
-			"8") draw8;;
-			"9") draw9;;
+		case $num in
+			0 ) draw0;;
+			1 ) draw1;;
+			2 ) draw2;;
+			3 ) draw3;;
+			4 ) draw4;;
+			5 ) draw5;;
+			6 ) draw6;;
+			7 ) draw7;;
+			8 ) draw8;;
+			9 ) draw9;;
 			*  ) echo "Wrong number";;
 		esac
 	done	
