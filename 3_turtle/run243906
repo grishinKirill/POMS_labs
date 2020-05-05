@@ -8,14 +8,6 @@ function gotoxy() { echo "run abs with: $1, $2."; rosservice call /turtle1/telep
 function move() { echo "run rel with: $1, $2."; rosservice call /turtle1/teleport_relative $1 $2; }
 function turnOff() { rosservice call /turtle1/set_pen 255 255 255 1 1; } 
 function turnOn() { rosservice call /turtle1/set_pen 200 210 125 3 0; }
-function print_number() {
-
- case "$1" in
-  "0"   ) draw0;;
-  "1"   ) #draw1;;
-   *    ) echo "Wrong parametr";;
- esac 
-}
 
 function draw0() { 
 	lin0=(1 2 1 2); ang0=(0 $_r $_r $_r)
@@ -58,14 +50,3 @@ function draw9() {
 	for i in ${!lin9[@]};do
 	move ${lin9[$i]} ${ang9[$i]}; done	#draw number 
 }
-
-#___main___
-x0=1;	turnOff; gotoxy $x0 $y0; draw2		#1 number
-x0=2.5;	turnOff; gotoxy $x0 $y0; draw4		#2 number
-x0=4;	turnOff; gotoxy $x0 $y0; draw3		#3 number
-x0=5.5;	turnOff; gotoxy $x0 $y0; draw9		#4 number
-x0=7;	turnOff; gotoxy $x0 $y0; draw0		#5 number
-x0=8.5;	turnOff; gotoxy $x0 $y0; draw6		#6 number
-
-#echo "Нажмите клавишу и затем клавишу Return." ; read number ; print_number $number
-

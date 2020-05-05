@@ -1,0 +1,104 @@
+#!/bin/bash
+# Created by Antropov N.A. 05.05.20
+
+function clean_board() { echo "Clean board" ; rosservice call /clear ; }
+
+function num_print() {
+	
+	length=${#1}
+	for (( i=0; i < $length; i++ )) ; do
+		
+		# Enter coordinates to teleport
+		read -p "Enter start X coordinate: " x
+		read -p "Enter start Y coordinate: " y
+		turnOff; gotoxy $x $y
+		# Choose the number
+		case ${1:$i:1} in
+			"0") draw0;;
+			"1") draw1;;
+			"2") draw2;;
+			"3") draw3;;
+			"4") draw4;;
+			"5") draw5;;
+			"6") draw6;;
+			"7") draw7;;
+			"8") draw8;;
+			"9") draw9;;
+			*  ) echo "Wrong number";;
+		esac
+	done	
+}
+
+function draw1() {
+	lin1=(2) ; ang1=($_r)
+	turnOn
+	for i in ${!lin1[@]} ; do
+		move ${lin1[$i]} ${ang1[$i]}
+	done
+}
+
+function draw5() {
+	lin5=(1 1 1 1 1) ; ang5=(0 $_l $_l $_r $_r)
+	turnOn
+	for i in ${!lin5[@]} ; do
+		move ${lin5[$i]} ${ang5[$i]}
+	done
+}
+
+function draw7() {
+	lin7=(1 2) ; ang7=(0 $_r)
+	turnOn
+	for i in ${!lin7[@]} ; do
+		move ${lin7[$i]} ${ang7[$i]}
+	done
+}
+
+function draw8() {
+	lin8=(1 2 1 2 1 1) ; ang8=(0 $_r $_r $_r $_f $_l)
+	turnOn
+	for i in ${!lin8[@]} ; do
+		move ${lin8[$i]} ${ang8[$i]}
+	done
+}	
+
+#################
+#  MAIN PROGRAM #
+#################
+# Get func from other script
+source ./run243906
+
+echo "Hello! It's \"Number painter\". It can draw some numbers for you by using Turtlesim"
+echo "Before you start, check that roscore and Turtlesim are running"
+read -p "Would you like to start? [Y/n] " ans
+
+if [[ "$ans" =~ ^[nN].*$ ]] ; then
+	echo "Auf Wiedersehen! :)"
+	exit 0
+fi
+
+echo "The turtle is ready to draw"
+
+while true; do
+	
+	read -p "Enter your command or number(s): " comm
+	# Check command and choose action
+	if [[ "$comm" =~ ^clean.*$ ]] ; then
+		clean_board
+	elif [[ "$comm" =~ ^[0-9]*$ ]] ; then
+		num_print "$comm" 
+	else
+		echo "Wrong input"
+		continue
+	fi
+	
+	# Suggest to finish the script
+	read -p "Would you like to finish? [Y/n] " ans
+
+	if [[ "$ans" =~ ^[yY].*$ ]] ; then
+		break
+	fi
+done
+
+echo "Auf Wiedersehen! :)"
+
+exit 0
